@@ -24,7 +24,6 @@ class MapService {
       additionalOptions: const {
         "id": "mapbox/streets-v12",
       },
-      
     );
   }
 
@@ -38,7 +37,8 @@ class MapService {
     );
   }
 
-  static MarkerLayer getMarkerLayerOptions(List<PokemonModel> pokemons) {
+  static MarkerLayer getMarkerLayerOptions(
+      BuildContext context, List<PokemonModel> pokemons) {
     return MarkerLayer(
       rotate: true,
       markers: pokemons.map((pokemon) {
@@ -58,7 +58,19 @@ class MapService {
           point: LatLng(pokemon.lat!, pokemon.lng!),
           // point: const LatLng(4.700014, -74.042124),
           child: GestureDetector(
-            onTap: () {},
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return Container(
+                    height: 400,
+                    width: double.infinity,
+                    color: Colors.white,
+                    child: const Text("Bottom sheet successful"),
+                  );
+                },
+              );
+            },
             child: CircleAvatar(
               backgroundColor: const Color.fromARGB(66, 158, 158, 158),
               child: Image.network(
