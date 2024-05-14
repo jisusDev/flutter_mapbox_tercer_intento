@@ -19,7 +19,7 @@ class PokemonNameNotifier extends StateNotifier<PokemonState> {
     try {
       PokemonListResponse pokemonData = await PokemonService().getPokemonNames();
 
-      state = state.copyWith(pokemonModel: pokemonData, isLoading: false);
+      state = state.copyWith(pokemonResponse: pokemonData, isLoading: false);
     } catch (error) {
       state = state.copyWith(isLoading: false);
       ("Error fetching Pokemon data: $error");
@@ -28,16 +28,20 @@ class PokemonNameNotifier extends StateNotifier<PokemonState> {
 }
 
 class PokemonState {
-  final PokemonListResponse? pokemonModel;
+  final PokemonListResponse? pokemonResponse;
+  final PokemonModel? pokemonModel;
   final bool isLoading;
 
-  PokemonState({this.isLoading = false, this.pokemonModel});
+  PokemonState({this.isLoading = false, this.pokemonResponse, this.pokemonModel});
 
   PokemonState copyWith({
     bool? isLoading,
-    PokemonListResponse? pokemonModel,
+    PokemonListResponse? pokemonResponse,
+    PokemonModel? pokemonModel
   }) =>
       PokemonState(
           isLoading: isLoading ?? this.isLoading,
-          pokemonModel: pokemonModel ?? this.pokemonModel);
+          pokemonResponse: pokemonResponse ?? this.pokemonResponse,
+          pokemonModel: pokemonModel ?? this.pokemonModel
+          );
 }

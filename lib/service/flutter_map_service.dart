@@ -2,6 +2,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_mapbox_tercer_intento/model/model_pokemon.dart';
+import 'package:flutter_mapbox_tercer_intento/model/pokemon_detail_model.dart';
+import 'package:flutter_mapbox_tercer_intento/screens/show_bottom_sheet.dart';
+import 'package:flutter_mapbox_tercer_intento/service/pokemon_service.dart';
 import 'package:latlong2/latlong.dart';
 
 LatLngBounds mapBounds = LatLngBounds(
@@ -58,18 +61,13 @@ class MapService {
           point: LatLng(pokemon.lat!, pokemon.lng!),
           // point: const LatLng(4.700014, -74.042124),
           child: GestureDetector(
-            onTap: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (BuildContext context) {
-                  return Container(
-                    height: 400,
-                    width: double.infinity,
-                    color: Colors.white,
-                    child: const Text("Bottom sheet successful"),
-                  );
-                },
-              );
+            onTap: () async {
+              final id = pokemon.id;
+              PokemonDetailModel pokemonDetails =
+                  await PokemonDetailService().getPokemonDetails(id!);
+              print("Marker ${pokemon.id}");
+              print("$pokemonDetails");
+              ShowModal();
             },
             child: CircleAvatar(
               backgroundColor: const Color.fromARGB(66, 158, 158, 158),
@@ -85,4 +83,6 @@ class MapService {
       }).toList(),
     );
   }
+
+  
 }

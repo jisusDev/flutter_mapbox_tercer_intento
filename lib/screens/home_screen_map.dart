@@ -50,7 +50,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
               else // Si no
                 MapService.getTileLayerOptions(),
               MapService.getMarkerLayerOptions(
-                  context, pokemonProvider.pokemonModel?.results ?? []),
+                  context, pokemonProvider.pokemonResponse?.results ?? []),
               const MarkerLayer(
                 markers: [
                   Marker(

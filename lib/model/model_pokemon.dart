@@ -46,29 +46,26 @@ class PokemonModel {
   final String? name;
   final String? url;
   final String? image;
-  double? lat; 
-  double? lng; 
+  double? lat;
+  double? lng;
+  int? id;
 
-  PokemonModel({
-    this.name,
-    this.url,
-    this.image,
-    this.lat, 
-    this.lng, 
-  });
+  PokemonModel({this.name, this.url, this.image, this.lat, this.lng, this.id});
 
   factory PokemonModel.fromJson(Map<String, dynamic> json) {
     final url = json['url'];
     List<String> splitUrl = url.split('/');
     String pokemonId = splitUrl[splitUrl.length - 2];
+    String id = splitUrl[splitUrl.length - 2];
 
     return PokemonModel(
       name: json['name'],
       url: json['url'],
       image:
           'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$pokemonId.png',
-      lat: null, 
-      lng: null, 
+      lat: null,
+      lng: null,
+      id: int.parse(pokemonId),
     );
   }
 
@@ -79,4 +76,3 @@ class PokemonModel {
         'lng': lng,
       };
 }
-
