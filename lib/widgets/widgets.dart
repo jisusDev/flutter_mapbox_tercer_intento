@@ -1,4 +1,6 @@
 export 'dart:math';
+export 'package:flutter_mapbox_tercer_intento/screens/flutter_map_body.dart';
+export 'package:flutter_mapbox_tercer_intento/screens/bottom_sheet_column_row.dart';
 export 'package:flutter/material.dart';
 export 'package:flutter_map/flutter_map.dart';
 export 'package:flutter_mapbox_tercer_intento/model/model_pokemon.dart';
@@ -13,4 +15,3 @@ export 'package:flutter_mapbox_tercer_intento/service/flutter_map_service.dart';
 export "package:flutter_mapbox_tercer_intento/screens/home_screen_map.dart";
 export 'package:dio/dio.dart';
 export 'package:flutter_mapbox_tercer_intento/service/pokemon_service.dart';
-
