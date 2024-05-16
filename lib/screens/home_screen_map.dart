@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_mapbox_tercer_intento/providers/map_screen_providers.dart';
 import 'package:flutter_mapbox_tercer_intento/providers/pokemon_provider.dart';
+import 'package:flutter_mapbox_tercer_intento/screens/show_bottom_sheet.dart';
 import 'package:flutter_mapbox_tercer_intento/service/flutter_map_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
@@ -47,12 +48,12 @@ class _MapScreenState extends ConsumerState<MapScreen> {
             children: [
               if (themeDarkMode)
                 MapService.getDarkTileLayerOptions()
-              else 
+              else
                 MapService.getTileLayerOptions(),
-              MapService.getMarkerLayerOptions(
-                context,
-                pokemonProvider.pokemonModel?.results ?? [],
-                ref,
+              GetMarkerLayerOptions(
+                context: context,
+                pokemons: pokemonProvider.pokemonModel?.results ?? [],
+                ref: ref,
               ),
               const MarkerLayer(
                 markers: [

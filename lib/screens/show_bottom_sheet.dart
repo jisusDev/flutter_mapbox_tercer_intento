@@ -1,109 +1,98 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_mapbox_tercer_intento/model/model_pokemon.dart';
+import 'package:flutter_mapbox_tercer_intento/model/pokemon_detail_model.dart';
 import 'package:flutter_mapbox_tercer_intento/providers/pokemon_detail_provider.dart';
 import 'package:flutter_mapbox_tercer_intento/providers/pokemon_provider.dart';
+import 'package:flutter_mapbox_tercer_intento/screens/bottom_sheet_info.dart';
+import 'package:flutter_mapbox_tercer_intento/screens/show_bottom_sheet.dart';
+import 'package:flutter_mapbox_tercer_intento/service/pokemon_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:latlong2/latlong.dart';
 
-class BottomSheetPokemonView {
-  // @override
-  // Widget build(BuildContext context, WidgetRef ref) {
-  //   return GestureDetector(
-  //     onTap: () => _showModal(context, ref),
-  //   );
-  // }a
+LatLngBounds mapBounds = LatLngBounds(
+  // const LatLng(4.6, -74.1),
+  // const LatLng(4.8, -73.9),
+  const LatLng(4.700014, -74.04212),
+  const LatLng(4.703560, -74.038597),
+);
 
-  static showModal(
-    BuildContext context,
-    WidgetRef ref,
-  ) {
-    final pokemon = ref.watch(pokemonNameProvider).pokemonModel;
-    final loading = ref.watch(pokemonNameProvider).isLoading;
-    final id = ref.read(pokemonDetailProvider).pokemonDetailModel;
-    final pokemonDetails = ref.read(pokemonDetailProvider);
-  
-  final pokemonId = pokemon?.results?.first.id;
+class GetMarkerLayerOptions extends StatelessWidget {
+  const GetMarkerLayerOptions({
+    super.key,
+    required this.context,
+    required this.pokemons,
+    required this.ref,
+  });
 
-    // Llamar a _fetchPokemonService si el pokemonId está disponible
-    if (pokemonId != null) {
-      ref.read(pokemonNameProvider.notifier).servicePokemon;
-    }
+  final BuildContext context;
+  final List<PokemonModel> pokemons;
+  final WidgetRef ref;
 
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          height: 500,
-          width: double.infinity,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(55.0),
-              topRight: Radius.circular(55.0),
-            ),
-          ),
-          child: (loading)
-              ? const Center(child: CircularProgressIndicator())
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Image.network(
-                      height: 180,
-                      width: 180,
-                      fit: BoxFit.cover,
-                      pokemon?.results?.first.image ??
-                          "https://media.istockphoto.com/id/1289461335/photo/portrait-of-a-handsome-black-man.jpg?s=612x612&w=0&k=20&c=gDibbpmkeV04ta3ociwAgpqcjdeU5sI1nnd78wrnz-g=",
-                      errorBuilder: (context, error, stackTrace) {
-                        return Image.network(
-                            "https://media.istockphoto.com/id/1289461335/photo/portrait-of-a-handsome-black-man.jpg?s=612x612&w=0&k=20&c=gDibbpmkeV04ta3ociwAgpqcjdeU5sI1nnd78wrnz-g=");
-                      },
-                    ),
-                    Text(
-                      pokemon?.results?.first.name ?? "",
-                      style: const TextStyle(
-                        fontSize: 25,
+  @override
+  Widget build(BuildContext context) {
+    return MarkerLayer(
+      rotate: true,
+      markers: pokemons.map((pokemon) {
+        if (pokemon.lat == null || pokemon.lng == null) {
+          pokemon.lat = mapBounds.southEast.latitude +
+              Random().nextDouble() *
+                  (mapBounds.northEast.latitude - mapBounds.southEast.latitude);
+          pokemon.lng = mapBounds.southWest.longitude +
+              Random().nextDouble() *
+                  (mapBounds.northEast.longitude -
+                      mapBounds.southWest.longitude);
+        }
+        return Marker(
+          height: 70,
+          width: 70,
+          point: LatLng(pokemon.lat!, pokemon.lng!),
+          child: GestureDetector(
+            onTap: () async {
+              final loading = ref.watch(pokemonNameProvider).isLoading;
+              final id = ref.read(pokemonDetailProvider).pokemonDetailModel;
+              final pokemonDetails = ref.read(pokemonDetailProvider);
+
+              // Llama a fetchPokemonDetailService si el pokemonId está disponible
+              ref
+                  .read(pokemonDetailProvider.notifier)
+                  .fetchPokemonDetailService(pokemon.id ?? 0);
+
+              showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return Container(
+                    height: 500,
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(55.0),
+                        topRight: Radius.circular(55.0),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("Base Experience"),
-                        const SizedBox(
-                          width: 30,
-                        ),
-                        Text("${id?.baseExperience}")
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("Heigth"),
-                        const SizedBox(
-                          width: 100,
-                        ),
-                        Text(
-                            "${pokemonDetails.pokemonDetailModel?.height ?? "100"}"),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "Weight",
-                        ),
-                        const SizedBox(
-                          width: 92,
-                        ),
-                        Text(
-                            "${pokemonDetails.pokemonDetailModel?.weight ?? 30}"),
-                      ],
-                    ),
-                    const Spacer()
-                  ],
-                ),
+                    child: (loading)
+                        ? const Center(child: CircularProgressIndicator())
+                        : BottomSheetInfo(pokemonDetails: pokemonDetails, id: id, pokemon: pokemon,),
+                  );
+                },
+              );
+            },
+            child: CircleAvatar(
+              backgroundColor: const Color.fromARGB(66, 158, 158, 158),
+              child: Image.network(
+                pokemon.image ?? '',
+                width: 120,
+                height: 80,
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
         );
-      },
+      }).toList(),
     );
   }
 }
+
+
