@@ -18,19 +18,27 @@ class PokemonListResponse {
     this.results,
   });
 
-  factory PokemonListResponse.fromJson(Map<String, dynamic> json) =>
-      PokemonListResponse(
-        count: json['count'],
-        next: json['next'],
-        previous: json['previous'],
-        results: json['results'] == null
-            ? []
-            : List<PokemonModel>.from(
-                json['results']?.map(
-                  (pokemon) => PokemonModel.fromJson(pokemon),
-                ),
-              ),
-      );
+  factory PokemonListResponse.fromJson(Map<String, dynamic> json) {
+    final List<dynamic>? resultsJson = json['results'];
+    
+    List<PokemonModel>? pokemonModels;
+    if (resultsJson != null) {
+      pokemonModels = resultsJson.map((pokemonJson) {
+        final url = pokemonJson['url'];
+        List<String> splitUrl = url.split('/');
+        String pokemonId = splitUrl[splitUrl.length - 2];
+        
+        return PokemonModel.fromJson(pokemonJson, int.parse(pokemonId));
+      }).toList();
+    }
+
+    return PokemonListResponse(
+      count: json['count'],
+      next: json['next'],
+      previous: json['previous'],
+      results: pokemonModels,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         'count': count,
@@ -52,20 +60,17 @@ class PokemonModel {
 
   PokemonModel({this.name, this.url, this.image, this.lat, this.lng, this.id});
 
-  factory PokemonModel.fromJson(Map<String, dynamic> json) {
-    final url = json['url'];
-    List<String> splitUrl = url.split('/');
-    String pokemonId = splitUrl[splitUrl.length - 2];
-    String id = splitUrl[splitUrl.length - 2];
+  factory PokemonModel.fromJson(Map<String, dynamic> json, int id) {
+    //final url = json['url'];
 
     return PokemonModel(
       name: json['name'],
       url: json['url'],
       image:
-          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$pokemonId.png',
+'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png',
       lat: null,
       lng: null,
-      id: int.parse(pokemonId),
+      id: id,
     );
   }
 

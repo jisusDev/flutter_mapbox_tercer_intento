@@ -7,7 +7,7 @@ final pokemonDetailProvider =
         (ref) => PokemonDetailNotifier());
 
 class PokemonDetailNotifier extends StateNotifier<PokemonDetailState> {
-  final servicePokemonDetail = Provider<PokemonDetailService>((ref) {
+  final servicePokemonDetail = Provider<PokemonDetailService>((ref,) {
     return PokemonDetailService();
   });
   PokemonDetailNotifier() : super(PokemonDetailState());

@@ -47,10 +47,13 @@ class _MapScreenState extends ConsumerState<MapScreen> {
             children: [
               if (themeDarkMode)
                 MapService.getDarkTileLayerOptions()
-              else // Si no
+              else 
                 MapService.getTileLayerOptions(),
               MapService.getMarkerLayerOptions(
-                  context, pokemonProvider.pokemonResponse?.results ?? []),
+                context,
+                pokemonProvider.pokemonModel?.results ?? [],
+                ref,
+              ),
               const MarkerLayer(
                 markers: [
                   Marker(
