@@ -1,6 +1,5 @@
-import 'package:flutter_mapbox_tercer_intento/model/model_pokemon.dart';
-import 'package:flutter_mapbox_tercer_intento/service/pokemon_service.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import "package:flutter_mapbox_tercer_intento/widgets/widgets.dart";
+
 
 final pokemonNameProvider =
     StateNotifierProvider<PokemonNameNotifier, PokemonState>(

@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_mapbox_tercer_intento/providers/map_screen_providers.dart';
-import 'package:flutter_mapbox_tercer_intento/screens/home_screen_map.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import "package:flutter_mapbox_tercer_intento/widgets/widgets.dart";
 
 void main() => runApp(const ProviderScope(child: MyApp()));
 

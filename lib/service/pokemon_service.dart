@@ -1,7 +1,4 @@
-
-import 'package:dio/dio.dart';
-import 'package:flutter_mapbox_tercer_intento/model/model_pokemon.dart';
-import 'package:flutter_mapbox_tercer_intento/model/pokemon_detail_model.dart';
+import "package:flutter_mapbox_tercer_intento/widgets/widgets.dart";
 
 class PokemonService {
   var dio = Dio();
@@ -28,10 +25,8 @@ class PokemonService {
 class PokemonDetailService {
   var dio = Dio();
   final String baseUrl = "https://pokeapi.co/api/v2/pokemon";
-  
 
   Future<PokemonDetailModel> getPokemonDetails(int pokemonId) async {
-    
     String url = "$baseUrl/$pokemonId";
     try {
       Response response = await dio.get(url);

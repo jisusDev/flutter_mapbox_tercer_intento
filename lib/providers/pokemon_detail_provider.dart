@@ -1,13 +1,13 @@
-import 'package:flutter_mapbox_tercer_intento/model/pokemon_detail_model.dart';
-import 'package:flutter_mapbox_tercer_intento/service/pokemon_service.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import "package:flutter_mapbox_tercer_intento/widgets/widgets.dart";
 
 final pokemonDetailProvider =
     StateNotifierProvider<PokemonDetailNotifier, PokemonDetailState>(
         (ref) => PokemonDetailNotifier());
 
 class PokemonDetailNotifier extends StateNotifier<PokemonDetailState> {
-  final servicePokemonDetail = Provider<PokemonDetailService>((ref,) {
+  final servicePokemonDetail = Provider<PokemonDetailService>((
+    ref,
+  ) {
     return PokemonDetailService();
   });
   PokemonDetailNotifier() : super(PokemonDetailState());

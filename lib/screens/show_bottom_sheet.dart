@@ -1,15 +1,5 @@
-import 'dart:math';
-import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_mapbox_tercer_intento/model/model_pokemon.dart';
-import 'package:flutter_mapbox_tercer_intento/model/pokemon_detail_model.dart';
-import 'package:flutter_mapbox_tercer_intento/providers/pokemon_detail_provider.dart';
-import 'package:flutter_mapbox_tercer_intento/providers/pokemon_provider.dart';
-import 'package:flutter_mapbox_tercer_intento/screens/bottom_sheet_info.dart';
-import 'package:flutter_mapbox_tercer_intento/screens/show_bottom_sheet.dart';
-import 'package:flutter_mapbox_tercer_intento/service/pokemon_service.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:latlong2/latlong.dart';
+import "package:flutter_mapbox_tercer_intento/widgets/widgets.dart";
+import "package:latlong2/latlong.dart";
 
 LatLngBounds mapBounds = LatLngBounds(
   // const LatLng(4.6, -74.1),

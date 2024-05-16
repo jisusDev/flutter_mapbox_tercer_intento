@@ -1,13 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_mapbox_tercer_intento/providers/map_screen_providers.dart';
-import 'package:flutter_mapbox_tercer_intento/providers/pokemon_provider.dart';
-import 'package:flutter_mapbox_tercer_intento/screens/show_bottom_sheet.dart';
-import 'package:flutter_mapbox_tercer_intento/service/flutter_map_service.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
+import "package:flutter_mapbox_tercer_intento/widgets/widgets.dart";
 
-const myPosition = LatLng(4.700014, -74.042124);
+const myPosition = LatLng(
+  4.700014,
+  -74.042124,
+);
 
 class MapScreen extends ConsumerStatefulWidget {
   const MapScreen({super.key});

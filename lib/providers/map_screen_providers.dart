@@ -1,5 +1,4 @@
-import 'package:flutter_mapbox_tercer_intento/service/flutter_map_service.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import "package:flutter_mapbox_tercer_intento/widgets/widgets.dart";
 
 final isDarkModeProvider = StateProvider<bool>((ref) => false);
 
@@ -12,7 +11,6 @@ class MapScreenNotifier extends StateNotifier<MapaState> {
   final serviceMapScreenProvider = Provider<MapService>((ref) {
     return MapService();
   });
-
 
   MapScreenNotifier() : super(MapaState()) {
     _fetchMapService();
@@ -32,7 +30,7 @@ class MapScreenNotifier extends StateNotifier<MapaState> {
 
 class MapaState {
   final bool isLoading;
-  
+
   MapaState({
     this.isLoading = false,
   });
@@ -42,4 +40,3 @@ class MapaState {
   }) =>
       MapaState(isLoading: isLoading ?? this.isLoading);
 }
-

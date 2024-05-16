@@ -1,16 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_mapbox_tercer_intento/model/model_pokemon.dart';
-import 'package:flutter_mapbox_tercer_intento/model/pokemon_detail_model.dart';
-import 'package:flutter_mapbox_tercer_intento/providers/pokemon_detail_provider.dart';
+import "package:flutter_mapbox_tercer_intento/widgets/widgets.dart";
 
 class BottomSheetInfo extends StatelessWidget {
-  const BottomSheetInfo({super.key, 
-    required this.pokemon, 
+  const BottomSheetInfo({
+    super.key,
+    required this.pokemon,
     required this.pokemonDetails,
     required this.id,
   });
 
-  final PokemonModel pokemon; 
+  final PokemonModel pokemon;
   final PokemonDetailState pokemonDetails;
   final PokemonDetailModel? id;
 
