@@ -1,19 +1,20 @@
 import "package:flutter_mapbox_tercer_intento/widgets/widgets.dart";
 
-class BottomSheetColumnRow extends StatelessWidget {
+class BottomSheetColumnRow extends ConsumerWidget {
   const BottomSheetColumnRow({
     super.key,
     required this.pokemon,
-    required this.pokemonDetails,
     required this.id,
   });
 
   final PokemonModel pokemon;
-  final PokemonDetailState pokemonDetails;
   final PokemonDetailModel? id;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    
+    final pokemonDetails = ref.watch(pokemonDetailProvider).pokemonDetailModel;
+    
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -47,7 +48,7 @@ class BottomSheetColumnRow extends StatelessWidget {
           width: 80,
         ),
         Text(
-          "ID: ${pokemonDetails.pokemonDetailModel?.id}",
+          "ID: ${pokemonDetails?.id}",
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20,
@@ -70,7 +71,7 @@ class BottomSheetColumnRow extends StatelessWidget {
               width: 30,
             ),
             Text(
-              "${id?.baseExperience}",
+              "${pokemonDetails?.baseExperience}",
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
@@ -92,7 +93,7 @@ class BottomSheetColumnRow extends StatelessWidget {
               width: 135,
             ),
             Text(
-              "${pokemonDetails.pokemonDetailModel?.height ?? "100"}",
+              "${pokemonDetails?.height ?? "100"}",
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
@@ -114,7 +115,7 @@ class BottomSheetColumnRow extends StatelessWidget {
               width: 120,
             ),
             Text(
-              "${pokemonDetails.pokemonDetailModel?.weight ?? 30}",
+              "${pokemonDetails?.weight ?? 30}",
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,

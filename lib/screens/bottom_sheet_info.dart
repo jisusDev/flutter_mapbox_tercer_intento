@@ -1,6 +1,6 @@
 import "package:flutter_mapbox_tercer_intento/widgets/widgets.dart";
 
-class BottomSheetInfo extends StatelessWidget {
+class BottomSheetInfo extends StatefulWidget {
   const BottomSheetInfo({
     super.key,
     required this.pokemon,
@@ -13,8 +13,12 @@ class BottomSheetInfo extends StatelessWidget {
   final PokemonDetailModel? id;
 
   @override
+  State<BottomSheetInfo> createState() => _BottomSheetInfoState();
+}
+
+class _BottomSheetInfoState extends State<BottomSheetInfo> {
+  @override
   Widget build(BuildContext context) {
-    return BottomSheetColumnRow(
-        pokemon: pokemon, pokemonDetails: pokemonDetails, id: id);
+    return BottomSheetColumnRow(pokemon: widget.pokemon, id: widget.id);
   }
 }

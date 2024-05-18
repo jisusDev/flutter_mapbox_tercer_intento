@@ -31,12 +31,10 @@ class PokemonDetailNotifier extends StateNotifier<PokemonDetailState> {
 class PokemonDetailState {
   final PokemonDetailModel? pokemonDetailModel;
   final bool isLoading;
-  final bool showBottomSheet;
 
   PokemonDetailState({
     this.isLoading = false,
     this.pokemonDetailModel,
-    this.showBottomSheet = false,
   });
 
   PokemonDetailState copyWith({
@@ -47,6 +45,5 @@ class PokemonDetailState {
       PokemonDetailState(
         isLoading: isLoading ?? this.isLoading,
         pokemonDetailModel: pokemonDetailModel ?? this.pokemonDetailModel,
-        showBottomSheet: showBottomSheet ?? this.showBottomSheet,
       );
 }

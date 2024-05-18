@@ -30,7 +30,7 @@ class PokemonState {
   final PokemonListResponse? pokemonModel;
   final bool isLoading;
 
-  PokemonState({this.isLoading = false, this.pokemonModel});
+  PokemonState({this.isLoading = true, this.pokemonModel});
 
   PokemonState copyWith({
     bool? isLoading,

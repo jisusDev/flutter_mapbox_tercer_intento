@@ -1,7 +1,6 @@
 import "package:flutter_mapbox_tercer_intento/widgets/widgets.dart";
 
 
-List<Marker> pokemonMarkers = [];
 
 class MapService {
   static const String mapboxAccesToken =

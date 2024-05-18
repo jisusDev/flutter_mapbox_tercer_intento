@@ -59,7 +59,11 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        FlutterMapBody(mapController: mapController, themeDarkMode: themeDarkMode, pokemonProvider: pokemonProvider, ref: ref),
+        FlutterMapBody(
+            mapController: mapController,
+            themeDarkMode: themeDarkMode,
+            pokemonProvider: pokemonProvider,
+            ref: ref),
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 80, 20, 0),
           child: Container(
@@ -127,5 +131,3 @@ class _Body extends StatelessWidget {
     );
   }
 }
-
-
